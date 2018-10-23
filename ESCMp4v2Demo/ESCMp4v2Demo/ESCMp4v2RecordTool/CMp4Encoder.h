@@ -29,7 +29,7 @@ class CMp4Encoder
 public:
     CMp4Encoder(char *strFilePath, int vWidth, int vHeight, int vRate, int vTimeScale, unsigned int audioFormat, unsigned int audioSampleRate, unsigned int audioChannel, int bitsPerSample);
 	int WriteVideoTrack(BYTE*,int);
-    int WriteAudioTrack(BYTE*,int,unsigned int);
+    int WriteAudioTrack(BYTE*,int);
     int WriteVideoTrack(BYTE* pframeBuf,int frameSize,unsigned char **ppsBuff,int *ppsLen,unsigned char **spsBuff,int *spsLen);
     int WriteH264SPS(unsigned char* pBuf,int len);
     int WriteH264PPS(unsigned char* pBuf,int len);

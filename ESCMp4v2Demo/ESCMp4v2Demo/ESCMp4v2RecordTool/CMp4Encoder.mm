@@ -6,6 +6,78 @@
 #include <stdlib.h>
 
 
+/* AAC object types */
+#define MAIN 1
+#define LOW  2
+#define SSR  3
+#define LTP  4
+
+/* Returns the sample rate index */
+int GetSRIndex(unsigned int sampleRate) {
+    if (92017 <= sampleRate){
+        return 0;
+    }
+    if (75132 <= sampleRate) {
+        return 1;
+    }
+    if (55426 <= sampleRate) {
+        return 2;
+    }
+    if (46009 <= sampleRate) {
+        return 3;
+    }
+    if (37566 <= sampleRate) {
+        return 4;
+    }
+    if (27713 <= sampleRate) {
+        return 5;
+    }
+    if (23004 <= sampleRate) {
+        return 6;
+    }
+    if (18783 <= sampleRate) {
+        return 7;
+    }
+    if (13856 <= sampleRate) {
+        return 8;
+    }
+    if (11502 <= sampleRate) {
+        return 8;
+    }
+    if (9391 <= sampleRate) {
+        return 10;
+    }
+    return 11;
+}
+
+void getESConfig(int8_t type,int sampleRate,int channels,int8_t result[2] ) {
+    unsigned char config[2]={0};
+    int sIndex = GetSRIndex(sampleRate);
+    int8_t sampleIndex = sIndex;
+    
+    //0000 0000
+    
+    unsigned char1 = 0x00;
+    unsigned char2 = 0x00;
+    
+    type = type << 3;
+    char1 = char1 | type;
+    
+    int8_t sampleIndex2 = sampleIndex << 7;
+    sampleIndex = sampleIndex >> 1;
+    
+    char1 = char1 | sampleIndex;
+    
+    config[0] = char1;
+    
+    char2 = char2 | sampleIndex2;
+    int8_t channelsInt8 = channels;
+    channelsInt8 = channelsInt8 << 3;
+    char2 = char2 | channelsInt8;
+    
+    config[1] = char2;
+    memcpy(result, config, 2);
+}
 
 
 typedef enum MEDIA_FRAME_TYPE
@@ -84,9 +156,60 @@ static int ReadOneNaluFromBuf(const unsigned char *buffer,
             //
             MP4SetAudioProfileLevel(m_mp4FHandle, 0x2);
             
+                                                //
+            /*
+             在使用MP4v2制作.mp4档案时，如果你要使用的Audio编码格式是AAC，那么你就需要使用MP4SetTrackESConfiguration这个函式来设定解码需要的资料。在网路上看到的例子都是以FAAC编码为居多，大多都可以参考需要的设定，设定MP4SetTrackESConfiguration的方式，都是先利用FAAC里的  faacEncGetDecoderSpecificInfo得到想要的资料，再传给 MP4SetTrackESConfiguration
+             
+             faacEncGetDecoderSpecificInfo 的程式碼如下，可以看出我們要的格式是
+             
+             5 bits | 4 bits | 4 bits | 3 bits
+             第一欄 第二欄 第三欄 第四欄
+             
+             第一欄：AAC Object Type
+             第二欄：Sample Rate Index
+             第三欄：Channel Number
+             第四欄：Don't care，設 0
+    
+    // AAC object types
+#define MAIN 1
+#define LOW  2
+#define SSR  3
+#define LTP  4
+    
+    // Returns the sample rate index
+    int GetSRIndex(unsigned int sampleRate)
+    {
+           if (92017 <= sampleRate) return 0;
+           if (75132 <= sampleRate) return 1;
+           if (55426 <= sampleRate) return 2;
+           if (46009 <= sampleRate) return 3;
+           if (37566 <= sampleRate) return 4;
+           if (27713 <= sampleRate) return 5;
+           if (23004 <= sampleRate) return 6;
+           if (18783 <= sampleRate) return 7;
+           if (13856 <= sampleRate) return 8;
+           if (11502 <= sampleRate) return 9;
+           if (9391 <= sampleRate) return 10;
+        
+           return 11;
+    }
+    
+    現在，對於你自己要設定的參數值，就知道要怎麼設了吧！舉個例子，我使用的 AAC 是 LOW，44100 hz，Stereo，那麼從上面的資料來看
+    
+    第一欄：00010
+    第二欄：0100
+    第三欄：0010
+    第四欄：000
+    
+    合起來： 00010010 00010000 ＝＞ 0x12 0x10
+    原文：https://blog.csdn.net/tanningzhong/article/details/77527692
+             */
             uint32_t aacConfigSize = 2;
-            uint8_t aacConfig[2] = {21,136};                                     //
-            MP4SetTrackESConfiguration(m_mp4FHandle,m_aTrackId,(uint8_t*)aacConfig,(uint32_t)aacConfigSize);
+            int8_t result[2] = {0};
+            getESConfig(2, audioSampleRate, audioChannel, result);
+            
+            MP4SetTrackESConfiguration(m_mp4FHandle,m_aTrackId,(uint8_t*)result,(uint32_t)aacConfigSize);
+            
         }
             break;
         default:
@@ -95,7 +218,6 @@ static int ReadOneNaluFromBuf(const unsigned char *buffer,
     
     //-------------------------------------------------------------------------------------
 }
-
 
 //返回读了多少字节
 static int ReadOneNaluFromBuf(const unsigned char *buffer,
@@ -348,7 +470,7 @@ int CMp4Encoder::WriteVideoTrack(BYTE* pframeBuf,int frameSize,unsigned char **p
 
 
 //添加音频数据
-int CMp4Encoder::WriteAudioTrack(BYTE* _aacData,int _aacSize,unsigned int timestamp)
+int CMp4Encoder::WriteAudioTrack(BYTE* _aacData,int _aacSize)
 {
     if(m_aTrackId == MP4_INVALID_TRACK_ID)
     {
@@ -367,7 +489,12 @@ int CMp4Encoder::WriteAudioTrack(BYTE* _aacData,int _aacSize,unsigned int timest
     
     if(m_audioFormat == WAVE_FORMAT_AAC)
     {
-         MP4WriteSample(m_mp4FHandle, m_aTrackId,(const uint8_t*) _aacData+7, _aacSize-7 ,1024, 0, 1);
+         bool result = MP4WriteSample(m_mp4FHandle, m_aTrackId,(const uint8_t*) _aacData+7, _aacSize-7 ,1024, 0, 1);
+        if (result == true) {
+            printf("add success!\n");
+        }else {
+            printf("add failed!\n");
+        }
     }
     else if (m_audioFormat == WAVE_FORMAT_G711)
     {

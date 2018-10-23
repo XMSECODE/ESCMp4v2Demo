@@ -83,11 +83,11 @@
 //    }
 }
 
-- (void)addAudioData:(NSData *)audioData timestamp:(NSInteger)timestamp {
+- (void)addAudioData:(NSData *)audioData {
     BYTE *frameBuf = (BYTE *)[audioData bytes];
     unsigned int length   = (unsigned int)[audioData length];
     if (_mp4Encoder) {
-        _mp4Encoder->WriteAudioTrack(frameBuf,length,(unsigned int)timestamp);
+        _mp4Encoder->WriteAudioTrack(frameBuf,length);
     }
 }
 
@@ -137,14 +137,22 @@
 /**
  H264文件和AAC文件转MP4
  */
-+ (BOOL)H264AndAACToMp4WithH264FilePath:(NSString *)h264FilePath aacFilePath:(NSString *)aacFilePath  mp4FilePath:(NSString *)mp4FilePath width:(int)width height:(int)height frameRate:(int)frameRate audioSampleRate:(NSInteger)audioSampleRate {
++ (BOOL)H264AndAACToMp4WithH264FilePath:(NSString *)h264FilePath
+                            aacFilePath:(NSString *)aacFilePath
+                            mp4FilePath:(NSString *)mp4FilePath
+                                  width:(int)width
+                                 height:(int)height
+                              frameRate:(int)frameRate
+                        audioSampleRate:(NSInteger)audioSampleRate
+                           audioChannel:(int)audioChannel
+                     audioBitsPerSample:(int)audioBitsPerSample {
     
     
     NSData *h264Data = [NSData dataWithContentsOfFile:h264FilePath];
     NSData *aacData = [NSData dataWithContentsOfFile:aacFilePath];
     
     ESCMp4v2RecordTool *mp4v2Tool = [[ESCMp4v2RecordTool alloc] init];
-    [mp4v2Tool startRecordWithFilePath:mp4FilePath Width:width height:height frameRate:frameRate audioFormat:WAVE_FORMAT_AAC audioSampleRate:audioSampleRate audioChannel:1 audioBitsPerSample:16];
+    [mp4v2Tool startRecordWithFilePath:mp4FilePath Width:width height:height frameRate:frameRate audioFormat:WAVE_FORMAT_AAC audioSampleRate:audioSampleRate audioChannel:audioChannel audioBitsPerSample:audioBitsPerSample];
     
     uint8_t *videoData = (uint8_t*)[h264Data bytes];
     
@@ -175,24 +183,22 @@
     lastJ = 0;
     while (j < aacData.length) {
         if (voiceData[j] == 0xff &&
-            voiceData[j + 1] == 0xf1 &&
-            voiceData[j + 2] == 0x6c) {
+            (voiceData[j + 1] & 0xf0) == 0xf0) {
             if (j > 0) {
+                //0xfff判断AAC头
                 int frame_size = j - lastJ;
-                NSData *buff = [NSData dataWithBytes:&voiceData[lastJ] length:frame_size];
-//                NSLog(@"%@",buff);
-                lastJ = j;
-                [mp4v2Tool addAudioData:buff timestamp:0];
+                if (frame_size > 7) {
+                    NSData *buff = [NSData dataWithBytes:&voiceData[lastJ] length:frame_size];
+//                    NSLog(@"%@",buff);
+                    lastJ = j;
+                    [mp4v2Tool addAudioData:buff];
+                }
             }
         }
         j++;
     }
     NSLog(@"完成");
     [mp4v2Tool stopRecord];
-    return YES;
-    
-    
-    
     return YES;
 }
 
