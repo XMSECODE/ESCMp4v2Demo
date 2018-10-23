@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		F02F021B2178905300226A54 /* CMp4Encoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = F02F02192178905300226A54 /* CMp4Encoder.mm */; };
 		F02F02202178919B00226A54 /* video.h264 in Resources */ = {isa = PBXBuildFile; fileRef = F02F021F2178919B00226A54 /* video.h264 */; };
+		F0762A82217ECB4200442B9C /* vocal.aac in Resources */ = {isa = PBXBuildFile; fileRef = F0762A80217ECB3F00442B9C /* vocal.aac */; };
+		F0762A83217ECB4200442B9C /* vocal.pcm in Resources */ = {isa = PBXBuildFile; fileRef = F0762A81217ECB4200442B9C /* vocal.pcm */; };
+		F0762A87217F080700442B9C /* 8000_1_16.aac in Resources */ = {isa = PBXBuildFile; fileRef = F0762A86217F080700442B9C /* 8000_1_16.aac */; };
+		F0762A89217F081500442B9C /* 8000_1_16.pcm in Resources */ = {isa = PBXBuildFile; fileRef = F0762A88217F081500442B9C /* 8000_1_16.pcm */; };
 		F0AD63152179725800DC77AA /* video2.h264 in Resources */ = {isa = PBXBuildFile; fileRef = F0AD63132179725700DC77AA /* video2.h264 */; };
 		F0AD63162179725800DC77AA /* video3.h264 in Resources */ = {isa = PBXBuildFile; fileRef = F0AD63142179725800DC77AA /* video3.h264 */; };
 		F0AD6318217979F900DC77AA /* libmp4v2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0AD6317217979F900DC77AA /* libmp4v2.a */; };
@@ -25,6 +29,10 @@
 		F02F02182178905300226A54 /* CMp4Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMp4Encoder.h; sourceTree = "<group>"; };
 		F02F02192178905300226A54 /* CMp4Encoder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CMp4Encoder.mm; sourceTree = "<group>"; };
 		F02F021F2178919B00226A54 /* video.h264 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.h264; sourceTree = "<group>"; };
+		F0762A80217ECB3F00442B9C /* vocal.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = vocal.aac; sourceTree = "<group>"; };
+		F0762A81217ECB4200442B9C /* vocal.pcm */ = {isa = PBXFileReference; lastKnownFileType = file; path = vocal.pcm; sourceTree = "<group>"; };
+		F0762A86217F080700442B9C /* 8000_1_16.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8000_1_16.aac; sourceTree = "<group>"; };
+		F0762A88217F081500442B9C /* 8000_1_16.pcm */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8000_1_16.pcm; sourceTree = "<group>"; };
 		F0AD63132179725700DC77AA /* video2.h264 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video2.h264; sourceTree = "<group>"; };
 		F0AD63142179725800DC77AA /* video3.h264 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video3.h264; sourceTree = "<group>"; };
 		F0AD6317217979F900DC77AA /* libmp4v2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp4v2.a; sourceTree = "<group>"; };
@@ -106,6 +114,10 @@
 				F02F021F2178919B00226A54 /* video.h264 */,
 				F0AD63132179725700DC77AA /* video2.h264 */,
 				F0AD63142179725800DC77AA /* video3.h264 */,
+				F0762A88217F081500442B9C /* 8000_1_16.pcm */,
+				F0762A86217F080700442B9C /* 8000_1_16.aac */,
+				F0762A80217ECB3F00442B9C /* vocal.aac */,
+				F0762A81217ECB4200442B9C /* vocal.pcm */,
 				F02F02142178905300226A54 /* ESCMp4v2RecordTool */,
 				F0D38B7F20DE1C2300FF4AE8 /* Main.storyboard */,
 				F0D38B8220DE1C2300FF4AE8 /* Assets.xcassets */,
@@ -219,9 +231,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0762A87217F080700442B9C /* 8000_1_16.aac in Resources */,
+				F0762A82217ECB4200442B9C /* vocal.aac in Resources */,
 				F0AD63152179725800DC77AA /* video2.h264 in Resources */,
+				F0762A89217F081500442B9C /* 8000_1_16.pcm in Resources */,
 				F0D38B8620DE1C2300FF4AE8 /* LaunchScreen.storyboard in Resources */,
 				F02F02202178919B00226A54 /* video.h264 in Resources */,
+				F0762A83217ECB4200442B9C /* vocal.pcm in Resources */,
 				F0D38B8320DE1C2300FF4AE8 /* Assets.xcassets in Resources */,
 				F0D38B8120DE1C2300FF4AE8 /* Main.storyboard in Resources */,
 				F0AD63162179725800DC77AA /* video3.h264 in Resources */,

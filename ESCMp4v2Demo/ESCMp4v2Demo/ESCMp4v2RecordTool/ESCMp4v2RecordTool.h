@@ -15,7 +15,9 @@
                          height:(NSInteger)height
                       frameRate:(NSInteger)frameRate
                     audioFormat:(NSInteger)audioFormat
-                audioSampleRate:(NSInteger)audioSampleRate;
+                audioSampleRate:(NSInteger)audioSampleRate
+                   audioChannel:(int)audioChannel
+             audioBitsPerSample:(int)audioBitsPerSample;
 
 - (void)addVideoData:(NSData *)videoData;
 
@@ -23,6 +25,14 @@
 
 - (void)stopRecord;
 
-+ (BOOL)H264ToMp4:(NSString *)h264FilePath mp4FilePath:(NSString *)mp4FilePath width:(int)width height:(int)height frameRate:(int)frameRate;
+/**
+ H264文件转MP4
+ */
++ (BOOL)H264ToMp4WithH264FilePath:(NSString *)h264FilePath mp4FilePath:(NSString *)mp4FilePath width:(int)width height:(int)height frameRate:(int)frameRate;
+
+/**
+ H264文件和AAC文件转MP4
+ */
++ (BOOL)H264AndAACToMp4WithH264FilePath:(NSString *)h264FilePath aacFilePath:(NSString *)aacFilePath  mp4FilePath:(NSString *)mp4FilePath width:(int)width height:(int)height frameRate:(int)frameRate audioSampleRate:(NSInteger)audioSampleRate;
 
 @end

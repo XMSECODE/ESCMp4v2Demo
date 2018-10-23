@@ -61,7 +61,7 @@ static int ReadOneNaluFromBuf(const unsigned char *buffer,
         case WAVE_FORMAT_G711:
         {
             //alaw format
-            m_aTrackId = MP4AddALawAudioTrack(m_mp4FHandle, 8000);
+            m_aTrackId = MP4AddALawAudioTrack(m_mp4FHandle, audioSampleRate);
             MP4SetTrackIntegerProperty(m_mp4FHandle, m_aTrackId, "mdia.minf.stbl.stsd.alaw.channels", 1);
             MP4SetTrackIntegerProperty(m_mp4FHandle, m_aTrackId, "mdia.minf.stbl.stsd.alaw.sampleSize", 8);
         }
@@ -69,14 +69,14 @@ static int ReadOneNaluFromBuf(const unsigned char *buffer,
         case WAVE_FORMAT_G711U:
         {
             //ulaw format
-            m_aTrackId = MP4AddULawAudioTrack(m_mp4FHandle, 8000);
+            m_aTrackId = MP4AddULawAudioTrack(m_mp4FHandle, audioSampleRate);
             MP4SetTrackIntegerProperty(m_mp4FHandle, m_aTrackId, "mdia.minf.stbl.stsd.ulaw.channels", 1);
         }
             break;
         case WAVE_FORMAT_AAC:
         {
             //AAC format
-            m_aTrackId = MP4AddAudioTrack(m_mp4FHandle, 8000,1024, MP4_MPEG4_AUDIO_TYPE);
+            m_aTrackId = MP4AddAudioTrack(m_mp4FHandle, audioSampleRate,1024, MP4_MPEG4_AUDIO_TYPE);
             if (m_aTrackId == MP4_INVALID_TRACK_ID){
                 printf("\n MP4AddAudioTrack failed! trackId:%d\n",m_aTrackId);
                 return;
