@@ -110,7 +110,6 @@
     
     int j = 0;
     int lastJ = 0;
-    void *pbuff = malloc(1080 * 2046 * 3 * 4);
     while (j < h264Data.length ) {
         if (videoData[j] == 0x00 &&
             videoData[j + 1] == 0x00 &&
@@ -118,21 +117,18 @@
             videoData[j + 3] == 0x01) {
             if (j > 0) {
                 int frame_size = j - lastJ;
-                memcpy(pbuff, &videoData[lastJ], frame_size);
-                NSData *buff = [NSData dataWithBytes:pbuff length:frame_size];
+                NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
                 lastJ = j;
                 [mp4v2Tool addVideoData:buff];
             }else if (j == h264Data.length - 1) {
                 int frame_size = j - lastJ;
-                memcpy(pbuff, &videoData[lastJ], frame_size);
-                NSData *buff = [NSData dataWithBytes:pbuff length:frame_size];
+                NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
                 lastJ = j;
                 [mp4v2Tool addVideoData:buff];
             }
         }
         j++;
     }
-    free(pbuff);
     NSLog(@"完成");
     [mp4v2Tool stopRecord];
     return YES;
@@ -154,7 +150,6 @@
     
     int j = 0;
     int lastJ = 0;
-    void *pbuff = malloc(1080 * 2016 * 3 * 4);
     while (j < h264Data.length ) {
         if (videoData[j] == 0x00 &&
             videoData[j + 1] == 0x00 &&
@@ -162,14 +157,12 @@
             videoData[j + 3] == 0x01) {
             if (j > 0) {
                 int frame_size = j - lastJ;
-                memcpy(pbuff, &videoData[lastJ], frame_size);
-                NSData *buff = [NSData dataWithBytes:pbuff length:frame_size];
+                NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
                 lastJ = j;
                 [mp4v2Tool addVideoData:buff];
             }else if (j == h264Data.length - 1) {
                 int frame_size = j - lastJ;
-                memcpy(pbuff, &videoData[lastJ], frame_size);
-                NSData *buff = [NSData dataWithBytes:pbuff length:frame_size];
+                NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
                 lastJ = j;
                 [mp4v2Tool addVideoData:buff];
             }
@@ -181,17 +174,12 @@
     j = 0;
     lastJ = 0;
     while (j < aacData.length) {
-        //44100
-        //2
-        //2
-        //fff1 5080 3c
         if (voiceData[j] == 0xff &&
             voiceData[j + 1] == 0xf1 &&
             voiceData[j + 2] == 0x6c) {
             if (j > 0) {
                 int frame_size = j - lastJ;
-                memcpy(pbuff, &voiceData[lastJ], frame_size);
-                NSData *buff = [NSData dataWithBytes:pbuff length:frame_size];
+                NSData *buff = [NSData dataWithBytes:&voiceData[lastJ] length:frame_size];
 //                NSLog(@"%@",buff);
                 lastJ = j;
                 [mp4v2Tool addAudioData:buff timestamp:0];
@@ -199,7 +187,6 @@
         }
         j++;
     }
-    free(pbuff);
     NSLog(@"完成");
     [mp4v2Tool stopRecord];
     return YES;
