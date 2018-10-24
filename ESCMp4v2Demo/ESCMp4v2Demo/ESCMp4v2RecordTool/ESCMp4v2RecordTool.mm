@@ -120,12 +120,12 @@
                 NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
                 lastJ = j;
                 [mp4v2Tool addVideoData:buff];
-            }else if (j == h264Data.length - 1) {
-                int frame_size = j - lastJ;
-                NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
-                lastJ = j;
-                [mp4v2Tool addVideoData:buff];
             }
+        }else if (j == h264Data.length - 1) {
+            int frame_size = j - lastJ;
+            NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
+            lastJ = j;
+            [mp4v2Tool addVideoData:buff];
         }
         j++;
     }
@@ -168,12 +168,12 @@
                 NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
                 lastJ = j;
                 [mp4v2Tool addVideoData:buff];
-            }else if (j == h264Data.length - 1) {
-                int frame_size = j - lastJ;
-                NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
-                lastJ = j;
-                [mp4v2Tool addVideoData:buff];
             }
+        }else if (j == h264Data.length - 1) {
+            int frame_size = j - lastJ;
+            NSData *buff = [NSData dataWithBytes:&videoData[lastJ] length:frame_size];
+            lastJ = j;
+            [mp4v2Tool addVideoData:buff];
         }
         j++;
     }
@@ -193,6 +193,14 @@
                     lastJ = j;
                     [mp4v2Tool addAudioData:buff];
                 }
+            }
+        }else if (j == aacData.length - 1) {
+            int frame_size = j - lastJ;
+            if (frame_size > 7) {
+                NSData *buff = [NSData dataWithBytes:&voiceData[lastJ] length:frame_size];
+                //                    NSLog(@"%@",buff);
+                lastJ = j;
+                [mp4v2Tool addAudioData:buff];
             }
         }
         j++;

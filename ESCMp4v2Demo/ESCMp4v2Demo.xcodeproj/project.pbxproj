@@ -23,6 +23,8 @@
 		F0D38B8620DE1C2300FF4AE8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0D38B8420DE1C2300FF4AE8 /* LaunchScreen.storyboard */; };
 		F0D38B8920DE1C2300FF4AE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0D38B8820DE1C2300FF4AE8 /* main.m */; };
 		F0D38B9120DE1C7800FF4AE8 /* ESCMp4v2RecordTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = F0D38B9020DE1C7800FF4AE8 /* ESCMp4v2RecordTool.mm */; };
+		F0EA677B2180610E00D1FCE2 /* 8000_1_16_1.aac in Resources */ = {isa = PBXBuildFile; fileRef = F0EA677A2180610E00D1FCE2 /* 8000_1_16_1.aac */; };
+		F0EA677D2180611B00D1FCE2 /* 8000_16_1_1.pcm in Resources */ = {isa = PBXBuildFile; fileRef = F0EA677C2180611B00D1FCE2 /* 8000_16_1_1.pcm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		F0D38BA020DE1D2800FF4AE8 /* streaming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = streaming.h; sourceTree = "<group>"; };
 		F0D38BA120DE1D2800FF4AE8 /* track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = track.h; sourceTree = "<group>"; };
 		F0D38BA220DE1D2800FF4AE8 /* track_prop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = track_prop.h; sourceTree = "<group>"; };
+		F0EA677A2180610E00D1FCE2 /* 8000_1_16_1.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8000_1_16_1.aac; sourceTree = "<group>"; };
+		F0EA677C2180611B00D1FCE2 /* 8000_16_1_1.pcm */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8000_16_1_1.pcm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,8 @@
 				F0AD63142179725800DC77AA /* video3.h264 */,
 				F0762A88217F081500442B9C /* 8000_1_16.pcm */,
 				F0762A86217F080700442B9C /* 8000_1_16.aac */,
+				F0EA677C2180611B00D1FCE2 /* 8000_16_1_1.pcm */,
+				F0EA677A2180610E00D1FCE2 /* 8000_1_16_1.aac */,
 				F0762A80217ECB3F00442B9C /* vocal.aac */,
 				F0762A81217ECB4200442B9C /* vocal.pcm */,
 				F02F02142178905300226A54 /* ESCMp4v2RecordTool */,
@@ -236,9 +242,11 @@
 				F0AD63152179725800DC77AA /* video2.h264 in Resources */,
 				F0762A89217F081500442B9C /* 8000_1_16.pcm in Resources */,
 				F0D38B8620DE1C2300FF4AE8 /* LaunchScreen.storyboard in Resources */,
+				F0EA677B2180610E00D1FCE2 /* 8000_1_16_1.aac in Resources */,
 				F02F02202178919B00226A54 /* video.h264 in Resources */,
 				F0762A83217ECB4200442B9C /* vocal.pcm in Resources */,
 				F0D38B8320DE1C2300FF4AE8 /* Assets.xcassets in Resources */,
+				F0EA677D2180611B00D1FCE2 /* 8000_16_1_1.pcm in Resources */,
 				F0D38B8120DE1C2300FF4AE8 /* Main.storyboard in Resources */,
 				F0AD63162179725800DC77AA /* video3.h264 in Resources */,
 			);

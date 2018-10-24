@@ -48,15 +48,15 @@ typedef struct _NaluUnit
     int height = 720;
     int frameRate = 25;
     
-//    NSString *aacFilePath = [[NSBundle mainBundle] pathForResource:@"8000_1_16.aac" ofType:nil];
-//    int audioSampleRate = 8000;
-//    int audioChannel = 1;
-//    int bitsPerSample = 16;
-    
-    NSString *aacFilePath = [[NSBundle mainBundle] pathForResource:@"vocal.aac" ofType:nil];
-    int audioSampleRate = 44100;
-    int audioChannel = 2;
+    NSString *aacFilePath = [[NSBundle mainBundle] pathForResource:@"8000_1_16_1.aac" ofType:nil];
+    int audioSampleRate = 8000;
+    int audioChannel = 1;
     int bitsPerSample = 16;
+    
+//    NSString *aacFilePath = [[NSBundle mainBundle] pathForResource:@"vocal.aac" ofType:nil];
+//    int audioSampleRate = 44100;
+//    int audioChannel = 2;
+//    int bitsPerSample = 16;
 
     
     [ESCMp4v2RecordTool H264AndAACToMp4WithH264FilePath:h264FilePath aacFilePath:aacFilePath mp4FilePath:mp4FilePath width:width height:height frameRate:frameRate audioSampleRate:audioSampleRate audioChannel:audioChannel audioBitsPerSample:bitsPerSample];
