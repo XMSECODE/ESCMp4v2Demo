@@ -1,0 +1,2 @@
+# ESCMp4v2Demo
+使用Mp4v2库封装H264和AAC为MP4文件
