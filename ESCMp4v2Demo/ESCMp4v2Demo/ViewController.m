@@ -60,6 +60,32 @@ typedef struct _NaluUnit
 
     
     [ESCMp4v2RecordTool H264AndAACToMp4WithH264FilePath:h264FilePath aacFilePath:aacFilePath mp4FilePath:mp4FilePath width:width height:height frameRate:frameRate audioSampleRate:audioSampleRate audioChannel:audioChannel audioBitsPerSample:bitsPerSample];
+    [self saveVideo:mp4FilePath];
+}
+
+//videoPath为视频下载到本地之后的本地路径
+- (void)saveVideo:(NSString *)videoPath{
+    
+    if (videoPath) {
+        NSURL *url = [NSURL URLWithString:videoPath];
+        BOOL compatible = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([url path]);
+        if (compatible)
+        {
+            //保存相册核心代码
+            UISaveVideoAtPathToSavedPhotosAlbum([url path], self, @selector(savedPhotoImage:didFinishSavingWithError:contextInfo:), nil);
+        }
+    }
+}
+
+
+//保存视频完成之后的回调
+- (void) savedPhotoImage:(UIImage*)image didFinishSavingWithError: (NSError *)error contextInfo: (void *)contextInfo {
+    if (error) {
+        NSLog(@"保存视频失败%@", error.localizedDescription);
+    }
+    else {
+        NSLog(@"保存视频成功");
+    }
 }
 
 - (void)writMP4ForH264 {
